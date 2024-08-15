@@ -13,8 +13,8 @@ export function downloadPDF(fields: any, score: number) {
         // Cuadro Centro
         doc.setFillColor(242, 242, 252)
         doc.setDrawColor(0, 0, 0)
-        doc.roundedRect(29, 60, 152, 92, 2, 2, 'DF')
-        doc.line(90, 60, 90, 152)
+        doc.roundedRect(29, 60, 152, 102, 2, 2, 'DF')
+        doc.line(90, 60, 90, 162)
 
         // Fecha 
         doc.setFontSize(7)
@@ -73,6 +73,8 @@ export function downloadPDF(fields: any, score: number) {
         doc.text("Ingreso Mensual", 32, 137.5)
         doc.line(29, 141, 181, 141)
         doc.text("Antiguedad", 32, 147.5)
+        doc.line(29, 151, 181, 151)
+        doc.text("Score CV-Link", 32, 157.5)
 
 
         doc.setFont("helvetica", "normal");
@@ -85,17 +87,18 @@ export function downloadPDF(fields: any, score: number) {
         doc.text(fields.estudios, 93, 127.5)
         doc.text(fields.ingresos, 93, 137.5)
         doc.text(fields.antiguedad, 93, 147.5)
+        doc.text(fields.cvlink, 93, 157.5)
 
         doc.setFillColor(242, 242, 252)
         doc.setDrawColor(0, 0, 0)
-        doc.roundedRect(65, 170, 90, 20, 2, 2, 'DF')
-        doc.line(110, 170, 110, 190)
+        doc.roundedRect(65, 190, 90, 20, 2, 2, 'DF')
+        doc.line(110, 190, 110, 210)
 
         doc.setFontSize(14)
         doc.setFont("helvetica", "bold");
-        doc.text("Score Interno", 71, 181)
+        doc.text("Score Interno", 71, 201)
         doc.setFontSize(16)
-        doc.text(`${score}`, 127, 181)
+        doc.text(`${score}`, 127, 201)
 
 
         doc.save(`Simulacion-Score-Interno.pdf`)

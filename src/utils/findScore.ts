@@ -37,7 +37,7 @@ export function findScore(fields: any) {
     if (fields.vivienda == "Arriendo" && fields.antiguedad == "Hasta 4 años") {
         score -= 10
     }
-    if (score > 800) {
+    if (fields.cvlink > 800) {
         score += 35
     }
     return score

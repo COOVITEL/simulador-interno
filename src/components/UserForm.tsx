@@ -10,22 +10,30 @@ import RangoEdad from "./form/RangoEdad";
 import Vivienda from "./form/Vivienda";
 import Ingresos from "./form/Ingresos";
 import { findScore } from "../utils/findScore";
+import CVlink from "./form/CVlink";
 
 export default function UserForm() {
     const [control, setControl] = useState(false);
+    const [error, setError] = useState(false)
+    const [currentScore, setCurrentScore] = useState(0)
 
     const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setControl(true); // Empieza la visualización de "Descargando..."
 
         const fields = Object.fromEntries(new window.FormData(event.target));
         const score = findScore(fields);
-        setTimeout(() => {
-            downloadPDF(fields, score);
-            setControl(false);
-        }, 2000);
+        setCurrentScore(score)
+        if (score >= 656) {
+            setError(false)
+            setControl(true); // Empieza la visualización de "Descargando..."
+            setTimeout(() => {
+                downloadPDF(fields, score);
+                setControl(false);
+            }, 2000);
+        } else {
+            setError(true)
+        }
         
-        // Espera la finalización de la descarga
 
     }
 
@@ -49,7 +57,9 @@ export default function UserForm() {
             </div>
             <div className="flex flex-wrap gap-6 justify-center">
                 <Antiguedad />
+                <CVlink />
             </div>
+            {error&&<span className="text-red-600 text-2xl font-semibold">No cumple con el score minimo, su score es de: {currentScore}</span>}
             <button
                 type="submit"
                 className="bg-[#1D71B9] w-[400px] rounded-xl text-2xl font-semibold text-white py-2 border-2
